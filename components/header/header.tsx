@@ -12,6 +12,7 @@ const Wrapper = styled.section`
   justify-content: space-between;
   padding: 15px;
   color: #fff;
+  position: static;
 
   @media only screen and (min-width: 768px) {
     background-image: url('/assets/tablet/bg-pattern-header.svg');
