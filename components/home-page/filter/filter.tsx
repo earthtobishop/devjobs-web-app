@@ -1,6 +1,5 @@
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
-import { LocationInput } from './location-input'
 import { TitleInput } from './title-input'
 
 const Wrapper = styled.section`
@@ -163,7 +162,6 @@ const Filter: FC = (): ReactElement => {
   return (
     <Wrapper>
       <TitleInput placeholder='Filter by title, companies, etc...' />
-      <LocationInput placeholder='Filter by location...' />
       <SmallIconsWrapper>
         <FilterIcon />
         <SearchIcon />
