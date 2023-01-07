@@ -24,8 +24,14 @@ export interface Job {
   }
 }
 
-export async function getAllJobs(): Promise<Job> {
+export async function getAllJobs(): Promise<Job[]> {
   const filePath = path.join(process.cwd(), '/data/data.json')
   const objectData = JSON.parse(readFileSync(filePath, 'utf-8'))
   return objectData.jobs
+}
+
+export async function getJob(id: number) {
+  const allJobs = await getAllJobs()
+  const job = allJobs.find((j) => j.id === id)
+  return job
 }

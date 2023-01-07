@@ -78,8 +78,6 @@ const Location = styled.div`
 const JobCard: FC<JobCardProps> = (props): ReactElement => {
   const { job } = props
 
-  console.log(job)
-
   return (
     <Link href={`/jobs/${job.id}`}>
       <Card>

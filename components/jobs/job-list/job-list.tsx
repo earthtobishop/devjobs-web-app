@@ -29,6 +29,8 @@ const List = styled.section`
 const JobList: FC<JobListProps> = (props): ReactElement => {
   const { jobs } = props
 
+  console.log(jobs)
+
   return (
     <List>
       {jobs.map((job) => (
