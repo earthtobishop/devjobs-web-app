@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 
@@ -99,9 +100,12 @@ const Switch = styled.input`
 `
 
 const Header: FC = (): ReactElement => {
+  const router = useRouter()
+
+  const goHome = () => router.push('/')
   return (
     <Wrapper>
-      <Logo />
+      <Logo onClick={goHome} />
     </Wrapper>
   )
 }
