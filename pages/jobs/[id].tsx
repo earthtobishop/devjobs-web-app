@@ -112,11 +112,12 @@ const WhatYouWillDoDescription = styled.div`
   margin-top: 20px;
 `
 
-const JobPage: FC<JobPageProps> = (props): ReactElement => {
+const JobPage: FC<JobPageProps> = ({ job }): ReactElement => {
   const router = useRouter()
-  const { job } = props
 
-  console.log(job)
+  if (!job) {
+    return <p>Loading...</p>
+  }
 
   return (
     <Card>
@@ -124,7 +125,7 @@ const JobPage: FC<JobPageProps> = (props): ReactElement => {
         <div>{job.postedAt}</div>
         <span>&#183;</span>
         <div>{job.contract}</div>
-        <div style={{ cursor: 'pointer' }} onClick={() => router.push('/')}>
+        <div style={{ cursor: 'pointer' }} onClick={() => router.back()}>
           Go Back
         </div>
       </Description>
@@ -176,8 +177,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const id = params?.id
   const allJobs = await getAllJobs()
   const job = allJobs.find((j) => j.id === Number(id))
-
-  console.log(job)
 
   return {
     props: { job }

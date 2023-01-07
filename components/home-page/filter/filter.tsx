@@ -33,7 +33,6 @@ const SmallIconsWrapper = styled.div`
 `
 
 const SearchIconDiv = styled.div`
-  /* background-image: url('/assets/desktop/icon-search.svg'); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,14 +132,18 @@ const FilterIconDiv = styled.div`
   }
 `
 
-const FilterIcon = () => {
+interface FilterIconProps {
+  handleChange: () => void
+}
+
+const FilterIcon: React.FC<FilterIconProps> = ({ handleChange }) => {
   return (
     <FilterIconDiv>
       <div className='icon'>
         <img src='/assets/mobile/icon-filter.svg' alt='Filter Icon' />
       </div>
       <div className='label'>
-        <input type='checkbox' />
+        <input type='checkbox' onChange={handleChange} />
         <span>Full Time Only</span>
       </div>
     </FilterIconDiv>
@@ -158,12 +161,26 @@ const SearchIcon = () => {
   )
 }
 
-const Filter: FC = (): ReactElement => {
+interface FilterProps {
+  searchText: string
+  setSearchText: React.Dispatch<React.SetStateAction<string>>
+  handleChange: () => void
+}
+
+const Filter: FC<FilterProps> = ({
+  searchText,
+  setSearchText,
+  handleChange
+}): ReactElement => {
   return (
     <Wrapper>
-      <TitleInput placeholder='Filter by title, companies, etc...' />
+      <TitleInput
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        placeholder='Filter by title, companies, etc...'
+      />
       <SmallIconsWrapper>
-        <FilterIcon />
+        <FilterIcon handleChange={handleChange} />
         <SearchIcon />
       </SmallIconsWrapper>
     </Wrapper>

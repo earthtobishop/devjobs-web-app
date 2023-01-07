@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { FC, ReactElement, Fragment } from 'react'
+import React, { FC, ReactElement, Fragment, useState } from 'react'
 import Filter from '../components/home-page/filter/filter'
 import styled from 'styled-components'
 import { GetStaticProps } from 'next'
@@ -16,8 +16,38 @@ interface HomePageProps {
   jobs: Job[]
 }
 
+const search = (items: Job[], text: string, isChecked: boolean) => {
+  if (isChecked) {
+    return items.filter((item) => {
+      return (
+        (item.position.toLowerCase().includes(text.toLowerCase()) ||
+          item.company.toLowerCase().includes(text.toLowerCase()) ||
+          item.location.toLowerCase().includes(text.toLowerCase())) &&
+        item.contract === 'Full Time'
+      )
+    })
+  } else {
+    return items.filter((item) => {
+      return (
+        item.position.toLowerCase().includes(text.toLowerCase()) ||
+        item.company.toLowerCase().includes(text.toLowerCase()) ||
+        item.location.toLowerCase().includes(text.toLowerCase())
+      )
+    })
+  }
+}
+
 const HomePage: FC<HomePageProps> = (props): ReactElement => {
+  const [searchText, setSearchText] = useState('')
+  const [fullTimeChecked, setFullTimeChecked] = useState(false)
+
   const { jobs } = props
+
+  const handleChange = () => {
+    setFullTimeChecked(!fullTimeChecked)
+  }
+
+  const filteredJobs = search(jobs, searchText, fullTimeChecked)
 
   return (
     <Fragment>
@@ -26,8 +56,12 @@ const HomePage: FC<HomePageProps> = (props): ReactElement => {
         <meta name='description' content='A job board for developers' />
       </Head>
       <Wrapper>
-        <Filter />
-        <JobList jobs={jobs} />
+        <Filter
+          searchText={searchText}
+          setSearchText={setSearchText}
+          handleChange={handleChange}
+        />
+        <JobList jobs={filteredJobs} />
       </Wrapper>
     </Fragment>
   )

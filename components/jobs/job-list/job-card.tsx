@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react'
-import Link from 'next/link'
 import { Job } from '../../../lib/job-util'
 import styled from 'styled-components'
+import { useRouter } from 'next/router'
 
 interface JobCardProps {
   job: Job
@@ -77,21 +77,26 @@ const Location = styled.div`
 
 const JobCard: FC<JobCardProps> = (props): ReactElement => {
   const { job } = props
+  const router = useRouter()
+
+  const viewJob = () => {
+    router.push(`/jobs/${job.id}`)
+  }
+
+  let formattedLogoUrl = job.logo.substring(1)
 
   return (
-    <Link href={`/jobs/${job.id}`}>
-      <Card>
-        <Icon logo={job.logo} backgroundColor={job.logoBackground} />
-        <Description>
-          <div>{job.postedAt}</div>
-          <span>&#183;</span>
-          <div>{job.contract}</div>
-        </Description>
-        <Title>{job.position}</Title>
-        <Company>{job.company}</Company>
-        <Location>{job.location}</Location>
-      </Card>
-    </Link>
+    <Card onClick={viewJob}>
+      <Icon logo={formattedLogoUrl} backgroundColor={job.logoBackground} />
+      <Description>
+        <div>{job.postedAt}</div>
+        <span>&#183;</span>
+        <div>{job.contract}</div>
+      </Description>
+      <Title>{job.position}</Title>
+      <Company>{job.company}</Company>
+      <Location>{job.location}</Location>
+    </Card>
   )
 }
 
