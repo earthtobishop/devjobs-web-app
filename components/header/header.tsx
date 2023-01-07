@@ -98,21 +98,10 @@ const Switch = styled.input`
   }
 `
 
-const ThemeSwitch: FC = (): ReactElement => {
-  return (
-    <ThemeSwitchRow>
-      <DarkIcon />
-      <Switch type='checkbox' />
-      <LightIcon />
-    </ThemeSwitchRow>
-  )
-}
-
 const Header: FC = (): ReactElement => {
   return (
     <Wrapper>
       <Logo />
-      <ThemeSwitch />
     </Wrapper>
   )
 }
